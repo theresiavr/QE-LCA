@@ -37,6 +37,9 @@ def top_doc(df, doc_col, score_col, m):
     return top_docs
 
 def top_term_from_top_doc(df, doc_col, score_col, m, n):
-    docs = top_docs(df, doc_col, score_col, m)
+    """
+    get top m terms from n most relevant docs
+    """
+    docs = top_doc(df, doc_col, score_col, m)
     top_term = top_tfidf(docs,n)
     return top_term
