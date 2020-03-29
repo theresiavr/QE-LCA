@@ -7,6 +7,10 @@ Top n terms are obtained using the highest TF-IDF values.
 Top m documents are obtained using some kind of relevance score.
 
 """
+import pandas as pd
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 def top_tfidf(docs, n):
     """
     Get top n terms with highest TF-IDF value 
@@ -93,8 +97,3 @@ def top_term_from_top_doc(df, doc_col, score_col, m, n):
 
     #Return top terms
     return top_term
-
-if __name__ == '__main__':
-    import pandas as pd
-    import numpy as np
-    from sklearn.feature_extraction.text import TfidfVectorizer
