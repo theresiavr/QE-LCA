@@ -12,7 +12,7 @@ np = importlib.import_module("numpy")
 pd = importlib.import_module("pandas")
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-def top_tfidf(docs, n):
+def top_tfidf(docs, n, n_gram=(1,1)):
     """
     Get top n terms with highest TF-IDF value 
     from some docs.
@@ -20,15 +20,15 @@ def top_tfidf(docs, n):
     Args:
         docs (list/Series): Text document in the form of a nested list or pandas.Series
         n (int): Number of terms. To get all possible terms, put n=-1
-
-    Returns:
+        n_gram (tuple): Range of n_gram, default (1,1)
+     Returns:
         top_term_with_scores: returns top n terms with the highest TF-IDF values, 
         together with the TF-IDF values
 
     inspired by https://gist.github.com/StevenMaude/ea46edc315b0f94d03b9
     """
     #initialize TF-IDF vectorizer
-    vectorizer = TfidfVectorizer()
+    vectorizer = TfidfVectorizer(ngram_range=n_gram)
 
     #Fit vectorizer to the documents
     vectorizer.fit(docs)
@@ -74,10 +74,9 @@ def top_doc(df, doc_col, score_col, m):
     #Return top m documents based on relevance scores
     return top_docs
 
-def top_term_from_top_doc(df, doc_col, score_col, m, n):
+def top_term_from_top_doc(df, doc_col, score_col, m, n, n_gram=(1,1)):
     """
     Get top n terms from m most relevant docs
-
     
     Args:
         df = pandas.DataFrame object that contains the documents and their respective relevance scores
@@ -95,7 +94,7 @@ def top_term_from_top_doc(df, doc_col, score_col, m, n):
     docs = top_doc(df, doc_col, score_col, m)
 
     #Get top terms
-    top_term = top_tfidf(docs,n)
+    top_term = top_tfidf(docs, n, n_gram)
 
     #Return top terms
     return top_term
