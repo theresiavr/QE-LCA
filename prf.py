@@ -48,7 +48,7 @@ def top_tfidf(docs, n, n_gram=(1,1)):
 def top_doc(df, doc_col, score_col, m):
     """
     Get top m most relevant docs 
-    based on some relevance scores.
+    based on some relevance scores in score_col.
     
     Args:
         df = pandas.DataFrame object that contains the documents and their respective relevance scores
